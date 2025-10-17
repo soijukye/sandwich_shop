@@ -14,8 +14,13 @@ Widget build(BuildContext context) {
     title: 'Sandwich Shop App',
     home: Scaffold(
       appBar: AppBar(title: const Text('Sandwich Counter')),
-      body: const Center(
-        child: OrderItemDisplay(5, 'Footlong'),
+      body: Center(
+        child: Container(
+          width: 300,
+          height: 100,
+          color: Colors.yellow[100],
+          alignment: Alignment.center,
+          child: OrderItemDisplay(5, 'Footlong')),
       ),
     ),
   );
