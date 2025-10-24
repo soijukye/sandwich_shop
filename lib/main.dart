@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,13 +16,26 @@ Widget build(BuildContext context) {
     home: Scaffold(
       appBar: AppBar(title: const Text('Sandwich Counter')),
       body: Center(
-        child: Container(
-          width: 300,
-          height: 100,
-          color: Colors.yellow[100],
-          alignment: Alignment.center,
-          child: OrderItemDisplay(5, 'Footlong')),
-      ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const OrderItemDisplay(5, 'Footlong'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => print('Add button pressed!'),
+              child: const Text('Add'),
+            ),
+            ElevatedButton(
+              onPressed: () => print('Remove button pressed!'),
+              child: const Text('Remove'),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ),
     ),
   );
 }
