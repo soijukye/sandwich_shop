@@ -42,6 +42,17 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
+  void _increaseQuantity() {
+  if (_quantity < widget.maxQuantity) {
+    setState(() => _quantity++);
+  }
+}
+
+void _decreaseQuantity() {
+  if (_quantity > 0) {
+    setState(() => _quantity--);
+  }
+}
 
   @override
 Widget build(BuildContext context) {
@@ -61,13 +72,13 @@ Widget build(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () => print('Add button pressed!'),
-                child: const Text('Add'),
-              ),
-              ElevatedButton(
-                onPressed: () => print('Remove button pressed!'),
-                child: const Text('Remove'),
-              ),
+  onPressed: _increaseQuantity,
+  child: const Text('+'),
+),
+ElevatedButton(
+  onPressed: _decreaseQuantity,
+  child: const Text('-'),
+),
             ],
           ),
         ],
