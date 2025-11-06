@@ -32,7 +32,7 @@ class OrderItemDisplay extends StatelessWidget {
 class OrderScreen extends StatefulWidget {
   final int maxQuantity;
 
-  const OrderScreen({super.key, this.maxQuantity = 10});
+  const OrderScreen({super.key, this.maxQuantity = 5});
 
   @override
   State<OrderScreen> createState() {
@@ -66,36 +66,44 @@ class _OrderScreenState extends State<OrderScreen> {
           children: <Widget>[
             OrderItemDisplay(_quantity, 'Footlong'),
             if (_note.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 8.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[50],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.blue[200]!),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.note, size: 16, color: Colors.blue[700]),
-                      const SizedBox(width: 8),
-                      Flexible(
-                        child: Text(
-                          _note,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.blue[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.blue[200]!),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.note, size: 16, color: Colors.blue[700]),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Note:',
                           style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            color: Colors.grey[700],
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[700],
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            _note,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.grey[700],
+                            ),
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 32.0,
@@ -107,9 +115,9 @@ class _OrderScreenState extends State<OrderScreen> {
                   hintText: 'e.g., no onions, extra pickles',
                   border: OutlineInputBorder(),
                 ),
-                onChanged: (value) {
+                onSubmitted: (value) {
                   setState(() {
-                    _note = value;
+                  _note = value;
                   });
                 },
               ),
