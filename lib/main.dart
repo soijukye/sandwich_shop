@@ -70,8 +70,10 @@ class _OrderScreenState extends State<OrderScreen> {
               children: [
                 SegmentedButton<String>(
                   segments: const [
-                    ButtonSegment(value: '6 inch', label: Text('6 inch')),
-                    ButtonSegment(value: 'Footlong', label: Text('Footlong')),
+                    ButtonSegment(value: '6 inch', label: Text('6"'),
+                     ),
+                    ButtonSegment(value: 'Footlong', label: Text('12"')),
+
                   ],
                   selected: {_sandwichType},
                   onSelectionChanged: (newSelection) {
