@@ -185,10 +185,10 @@ void main() {
     testWidgets('shows correct toasted state when switch is toggled',
       (WidgetTester tester) async {
         await tester.pumpWidget(const App());
-        expect(find.text('untoasted'), findsOneWidget);
+        expect(find.text('Untoasted'), findsOneWidget);
         await tester.tap(find.byKey(const Key('toastedSwitch')));
         await tester.pump();
-        expect(find.text('toasted'), findsOneWidget);
+        expect(find.text('Toasted'), findsOneWidget);
       },
     );
   });

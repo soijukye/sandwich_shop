@@ -176,7 +176,7 @@ class _OrderScreenState extends State<OrderScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('not toasted', style: normalText),
+                const Text('Untoasted', style: normalText),
                 Switch(
                   key: const Key('toastedSwitch'),
                   value: _isToasted,
@@ -184,7 +184,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     setState(() => _isToasted = value);
                   },
                 ),
-                const Text('is toasted', style: normalText),
+                const Text('Toasted', style: normalText),
               ],
             ),
             Text('Total: £${total.toStringAsFixed(2)}', style: normalText),
