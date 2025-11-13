@@ -109,6 +109,7 @@ void main() {
         itemType: 'footlong',
         breadType: BreadType.white,
         orderNote: 'No notes added.',
+        toasted: false,
       );
       const testApp = MaterialApp(
         home: Scaffold(body: widgetToBeTested),
@@ -125,6 +126,7 @@ void main() {
         itemType: 'footlong',
         breadType: BreadType.white,
         orderNote: 'No notes added.',
+        toasted: false,
       );
       const testApp = MaterialApp(
         home: Scaffold(body: widgetToBeTested),
@@ -142,6 +144,7 @@ void main() {
         itemType: 'six-inch',
         breadType: BreadType.wheat,
         orderNote: 'No pickles',
+        toasted: false,
       );
       const testApp = MaterialApp(
         home: Scaffold(body: widgetToBeTested),
@@ -158,6 +161,7 @@ void main() {
         itemType: 'footlong',
         breadType: BreadType.wholemeal,
         orderNote: 'Lots of lettuce',
+        toasted: false,
       );
       const testApp = MaterialApp(
         home: Scaffold(body: widgetToBeTested),
@@ -178,15 +182,15 @@ void main() {
         expect(find.textContaining('six-inch sandwich'), findsOneWidget);
       },
     );
-
     testWidgets('shows correct toasted state when switch is toggled',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(const App());
-      expect(find.textContaining('untoasted'), findsOneWidget);
-      await tester.tap(find.byKey(const Key('toastedSwitch')));
-      await tester.pump();
-      expect(find.textContaining('toasted'), findsOneWidget);
-    });
+      (WidgetTester tester) async {
+        await tester.pumpWidget(const App());
+        expect(find.text('untoasted'), findsOneWidget);
+        await tester.tap(find.byKey(const Key('toastedSwitch')));
+        await tester.pump();
+        expect(find.text('toasted'), findsOneWidget);
+      },
+    );
   });
 }
 

@@ -37,6 +37,8 @@ class _OrderScreenState extends State<OrderScreen> {
   bool _isFootlong = true;
   BreadType _selectedBreadType = BreadType.white;
   bool _isToasted = false;
+  final PricingRepository _pricingRepository = PricingRepository(sixInchPrice: 7.0, footlongPrice: 11.0);
+
   @override
   void initState() {
     super.initState();
@@ -105,6 +107,9 @@ class _OrderScreenState extends State<OrderScreen> {
       noteForDisplay = _notesController.text;
     }
 
+    SandwichType sandwichTypeEnum = _isFootlong ? SandwichType.footlong : SandwichType.sixInch;
+    double total = _pricingRepository.calculateTotal(_quantity, sandwichTypeEnum);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Sandwich Counter', style: heading1)),
       body: Center(
@@ -116,6 +121,7 @@ class _OrderScreenState extends State<OrderScreen> {
               itemType: sandwichType,
               breadType: _selectedBreadType,
               orderNote: noteForDisplay,
+              toasted: _isToasted,
             ),
             const SizedBox(height: 20),
             Row(
@@ -170,7 +176,7 @@ class _OrderScreenState extends State<OrderScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('untoasted', style: normalText),
+                const Text('not toasted', style: normalText),
                 Switch(
                   key: const Key('toastedSwitch'),
                   value: _isToasted,
@@ -178,9 +184,10 @@ class _OrderScreenState extends State<OrderScreen> {
                     setState(() => _isToasted = value);
                   },
                 ),
-                const Text('toasted', style: normalText),
+                const Text('is toasted', style: normalText),
               ],
             ),
+            Text('Total: £${total.toStringAsFixed(2)}', style: normalText),
           ],
         ),
       ),
@@ -223,6 +230,7 @@ class OrderItemDisplay extends StatelessWidget {
   final String itemType;
   final BreadType breadType;
   final String orderNote;
+  final bool toasted;
 
   const OrderItemDisplay({
     super.key,
@@ -230,6 +238,7 @@ class OrderItemDisplay extends StatelessWidget {
     required this.itemType,
     required this.breadType,
     required this.orderNote,
+    required this.toasted,
   });
 
   @override
