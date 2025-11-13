@@ -173,11 +173,20 @@ void main() {
       (WidgetTester tester) async {
         await tester.pumpWidget(const App());
         expect(find.textContaining('footlong sandwich'), findsOneWidget);
-        await tester.tap(find.byType(Switch));
+        await tester.tap(find.byKey(const Key('sandwichTypeSwitch')));
         await tester.pump();
         expect(find.textContaining('six-inch sandwich'), findsOneWidget);
       },
     );
+
+    testWidgets('shows correct toasted state when switch is toggled',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const App());
+      expect(find.textContaining('untoasted'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('toastedSwitch')));
+      await tester.pump();
+      expect(find.textContaining('toasted'), findsOneWidget);
+    });
   });
 }
 
