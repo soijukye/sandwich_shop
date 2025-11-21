@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
-import 'package:sandwich_shop/repositories/order_repository.dart';
+
 
 enum BreadType { white, wheat, wholemeal }
 
@@ -37,7 +37,6 @@ class _OrderScreenState extends State<OrderScreen> {
   bool _isFootlong = true;
   BreadType _selectedBreadType = BreadType.white;
   bool _isToasted = false;
-  final PricingRepository _pricingRepository = PricingRepository(sixInchPrice: 7.0, footlongPrice: 11.0);
 
   @override
   void initState() {
@@ -107,8 +106,6 @@ class _OrderScreenState extends State<OrderScreen> {
       noteForDisplay = _notesController.text;
     }
 
-    SandwichType sandwichTypeEnum = _isFootlong ? SandwichType.footlong : SandwichType.sixInch;
-    double total = _pricingRepository.calculateTotal(_quantity, sandwichTypeEnum);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Sandwich Counter', style: heading1)),
@@ -187,7 +184,6 @@ class _OrderScreenState extends State<OrderScreen> {
                 const Text('Toasted', style: normalText),
               ],
             ),
-            Text('Total: £${total.toStringAsFixed(2)}', style: normalText),
           ],
         ),
       ),
