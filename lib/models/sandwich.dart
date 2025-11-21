@@ -4,7 +4,7 @@ enum SandwichType {
   veggieDelight,
   chickenTeriyaki,
   tunaMelt,
-  meatballMarinara,
+  meatballMarinara, sixInch,
 }
 
 class Sandwich {
@@ -28,6 +28,8 @@ class Sandwich {
         return 'Tuna Melt';
       case SandwichType.meatballMarinara:
         return 'Meatball Marinara';
+      case SandwichType.sixInch:
+        return 'Six Inch';
     }
   }
 
