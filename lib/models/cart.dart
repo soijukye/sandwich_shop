@@ -1,15 +1,18 @@
+import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/repositories/pricing_repository.dart';
 
 class CartItem {
   final String id;
   final String name;
+  final SandwichType type;
   final int quantity;
   final double price;
 
   CartItem({
     required this.id,
     required this.name,
-    required this.quantity,
+    required this.type,
+    this.quantity = 1,
     required this.price,
   });
 
@@ -17,6 +20,7 @@ class CartItem {
     return CartItem(
       id: id,
       name: name,
+      type: type,
       quantity: quantity ?? this.quantity,
       price: price,
     );
@@ -30,9 +34,12 @@ class Cart {
 
   double get totalPrice {
     final pricingRepository = PricingRepository(sixInchPrice: 0.0, footlongPrice: 0.0);
-    return pricingRepository.calculateTotal(items as int);
+    int sixInchCount = items.where((item) => item.type == SandwichType.sixInch).fold(0, (sum, item) => sum + item.quantity);
+    int footlongCount = items.where((item) => item.type == SandwichType.footlong).fold(0, (sum, item) => sum + item.quantity);
+    return pricingRepository.getPrice(SandwichType.sixInch, sixInchCount) +
+        pricingRepository.getPrice(SandwichType.footlong, footlongCount);
   }
-
+ 
   void addItem(CartItem item) {
     if (_items.containsKey(item.id)) {
       _items.update(

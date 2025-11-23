@@ -1,11 +1,15 @@
+import 'package:sandwich_shop/repositories/pricing_repository.dart';
+
 enum BreadType { white, wheat, wholemeal }
 
 enum SandwichType {
   veggieDelight,
   chickenTeriyaki,
   tunaMelt,
-  meatballMarinara, sixInch,
+  meatballMarinara, sixInch, footlong,
 }
+
+
 
 class Sandwich {
   final String id;
@@ -53,17 +57,18 @@ class Sandwich {
         return 'Meatball Marinara';
       case SandwichType.sixInch:
         return 'Six Inch';
+      case SandwichType.footlong:
+        throw UnimplementedError();
     }
   }
 
   String get image {
     String typeString = type.name;
-    String sizeString = '';
-    if (isFootlong) {
-      sizeString = 'footlong';
-    } else {
-      sizeString = 'six_inch';
-    }
+    String sizeString = isFootlong ? 'footlong' : 'six_inch';
     return 'assets/images/${typeString}_$sizeString.png';
+  }
+
+  double getPrice(PricingRepository pricingRepository) {
+    return pricingRepository.getSandwichPrice(type, isFootlong);
   }
 }

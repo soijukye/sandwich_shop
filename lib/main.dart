@@ -3,6 +3,8 @@ import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/models/cart.dart';
 
+
+
 void main() {
   runApp(const App());
 }
@@ -25,9 +27,7 @@ class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key, this.maxQuantity = 10});
 
   @override
-  State<OrderScreen> createState() {
-    return _OrderScreenState();
-  }
+  State<OrderScreen> createState() => _OrderScreenState();
 }
 
 class _OrderScreenState extends State<OrderScreen> {
@@ -56,6 +56,9 @@ class _OrderScreenState extends State<OrderScreen> {
   void _addToCart() {
     if (_quantity > 0) {
       final Sandwich sandwich = Sandwich(
+        id: _selectedSandwichType.name,
+        description: 'A delicious ${_selectedSandwichType.name} sandwich',
+        available: true,
         type: _selectedSandwichType,
         isFootlong: _isFootlong,
         breadType: _selectedBreadType,
@@ -66,7 +69,7 @@ class _OrderScreenState extends State<OrderScreen> {
           id: sandwich.name,
           name: sandwich.name,
           quantity: _quantity,
-          price: _isFootlong ? 5.0 : 3.0, // Example prices
+          price: _isFootlong ? 5.0 : 3.0, type: sandwich.type,
         ));
       });
 
@@ -94,7 +97,14 @@ class _OrderScreenState extends State<OrderScreen> {
     List<DropdownMenuEntry<SandwichType>> entries = [];
     for (SandwichType type in SandwichType.values) {
       Sandwich sandwich =
-          Sandwich(type: type, isFootlong: true, breadType: BreadType.white);
+          Sandwich(
+            id: type.name,
+            description: 'A delicious ${type.name} sandwich',
+            available: true,
+            type: type,
+            isFootlong: true,
+            breadType: BreadType.white,
+          );
       DropdownMenuEntry<SandwichType> entry = DropdownMenuEntry<SandwichType>(
         value: type,
         label: sandwich.name,
@@ -118,6 +128,9 @@ class _OrderScreenState extends State<OrderScreen> {
 
   String _getCurrentImagePath() {
     final Sandwich sandwich = Sandwich(
+      id: _selectedSandwichType.name,
+      description: 'A delicious ${_selectedSandwichType.name} sandwich',
+      available: true,
       type: _selectedSandwichType,
       isFootlong: _isFootlong,
       breadType: _selectedBreadType,
@@ -188,7 +201,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   _getCurrentImagePath(),
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return const Center(
+                    return Center(
                       child: Text(
                         'Image not found',
                         style: normalText,
@@ -259,6 +272,7 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 }
 
+// If you need a StyledButton, use the following correct implementation:
 class StyledButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final IconData icon;
@@ -275,19 +289,17 @@ class StyledButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ButtonStyle myButtonStyle = ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor,
-      foregroundColor: Colors.white,
-      textStyle: normalText,
-    );
-
-    return ElevatedButton(
+    return ElevatedButton.icon(
       onPressed: onPressed,
-      style: myButtonStyle,
-      child: Row(children: [Icon(icon), const SizedBox(width: 8), Text(label)]),
+      icon: Icon(icon, color: Colors.white),
+      label: Text(label, style: const TextStyle(color: Colors.white)),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
     );
   }
-  
 }
-
-
