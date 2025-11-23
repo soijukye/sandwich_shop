@@ -287,6 +287,7 @@ class StyledButton extends StatelessWidget {
       child: Row(children: [Icon(icon), const SizedBox(width: 8), Text(label)]),
     );
   }
+  
 }
 
 
