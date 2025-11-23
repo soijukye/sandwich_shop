@@ -1,36 +1,31 @@
 import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/models/cart.dart';
-
 class PricingRepository {
-    double getSandwichPrice(SandwichType type, bool isFootlong) {
-      if (isFootlong) {
-        return footlongPrice;
-      } else {
-        return sixInchPrice;
-      }
-    }
-  final double sixInchPrice;
-  final double footlongPrice;
+  final Map<SandwichType, double> sixInchPrices;
+  final Map<SandwichType, double> footlongPrices;
 
-  PricingRepository({required this.sixInchPrice, required this.footlongPrice});
+  PricingRepository({
+    required this.sixInchPrices,
+    required this.footlongPrices,
+  });
 
-  double getPrice(SandwichType type, int footlongCount) {
-    
-    if (SandwichType.values.contains(type)) {
-      return sixInchPrice;
+  double getSandwichPrice(SandwichType type, bool isFootlong) {
+    if (isFootlong) {
+      return footlongPrices[type] ?? 8.0;
     } else {
-      return footlongPrice;
+      return sixInchPrices[type] ?? 5.0;
     }
   }
 
-  double calculateSubtotal(int quantity, SandwichType type) {
-    return getPrice(type, quantity) * quantity;
+  double calculateSubtotal(int quantity, SandwichType type, bool isFootlong) {
+    return getSandwichPrice(type, isFootlong) * quantity;
   }
 
   double calculateCartSubtotal(Cart cart) {
     double subtotal = 0.0;
     for (final item in cart.items) {
-      subtotal += calculateSubtotal(item.quantity, item.type);
+      // You may need to add isFootlong to CartItem for full accuracy
+      subtotal += getSandwichPrice(item.type, true) * item.quantity;
     }
     return subtotal;
   }

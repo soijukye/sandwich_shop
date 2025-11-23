@@ -33,7 +33,7 @@ class Cart {
   List<CartItem> get items => _items.values.toList();
 
   double get totalPrice {
-    final pricingRepository = PricingRepository(sixInchPrice: 0.0, footlongPrice: 0.0);
+    final pricingRepository = PricingRepository(sixInchPrices: const {}, footlongPrices: const {});
     return pricingRepository.calculateCartTotal(this);
   }
  
