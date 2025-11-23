@@ -1,38 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/views/order_screen.dart';
+import 'package:sandwich_shop/models/sandwich.dart';
 
 void main() {
-  group('OrderScreen', () {
-    testWidgets('shows initial UI elements', (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(home: OrderScreen(maxQuantity: 5)));
-      expect(find.text('Sandwich Shop'), findsOneWidget);
-      expect(find.text('Add to Cart'), findsOneWidget);
-      expect(find.byType(DropdownMenu<SandwichType>), findsOneWidget);
-      expect(find.byType(DropdownMenu<BreadType>), findsOneWidget);
-      expect(find.byType(Switch), findsOneWidget);
-      expect(find.byType(IconButton), findsNWidgets(2)); // Add/Remove quantity
-    });
+  testWidgets('OrderScreen displays controls and adds to cart', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: OrderScreen(maxQuantity: 5)));
 
-    testWidgets('increments and decrements quantity', (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(home: OrderScreen(maxQuantity: 5)));
-      expect(find.text('1'), findsOneWidget); // initial quantity
-      await tester.tap(find.byIcon(Icons.add));
-      await tester.pump();
-      expect(find.text('2'), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.remove));
-      await tester.pump();
-      expect(find.text('1'), findsOneWidget);
-    });
+    // Check for sandwich type dropdown
+    expect(find.text('Sandwich Type'), findsWidgets);
+    // Check for bread type dropdown
+    expect(find.text('Bread Type'), findsWidgets);
+    // Check for quantity controls
+    expect(find.text('Quantity: '), findsOneWidget);
+    // Check for Add to Cart button
+    expect(find.text('Add to Cart'), findsOneWidget);
 
-    testWidgets('shows SnackBar when item is added to cart', (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(home: OrderScreen(maxQuantity: 5)));
-      await tester.tap(find.text('Add to Cart'));
-      await tester.pump(); // Start animation
-      await tester.pump(const Duration(seconds: 2)); // Wait for SnackBar
-      expect(find.byType(SnackBar), findsOneWidget);
-      expect(find.textContaining('Added'), findsOneWidget);
-    });
+    // Select sandwich type
+    await tester.tap(find.text('Sandwich Type'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Chicken Teriyaki').last);
+    await tester.pumpAndSettle();
+
+    // Select bread type
+    await tester.tap(find.text('Bread Type'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('wheat').last);
+    await tester.pumpAndSettle();
+
+    // Increase quantity
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+    expect(find.text('2'), findsOneWidget);
+
+    // Add to cart
+    await tester.tap(find.text('Add to Cart'));
+    await tester.pump();
+    // SnackBar should appear
+    expect(find.byType(SnackBar), findsOneWidget);
+    expect(find.textContaining('Added 2 footlong Chicken Teriyaki sandwich(es) on wheat bread to cart'), findsOneWidget);
   });
 }

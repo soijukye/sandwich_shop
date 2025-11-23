@@ -4,22 +4,22 @@ import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/models/cart.dart';
 
 void main() {
-  group('PricingRepository', () {
-    final pricingRepository = PricingRepository(
-      sixInchPrices: {
-        SandwichType.veggieDelight: 4.99,
-        SandwichType.chickenTeriyaki: 5.99,
-        SandwichType.tunaMelt: 5.49,
-        SandwichType.meatballMarinara: 5.79,
-      },
-      footlongPrices: {
-        SandwichType.veggieDelight: 7.99,
-        SandwichType.chickenTeriyaki: 8.99,
-        SandwichType.tunaMelt: 8.49,
-        SandwichType.meatballMarinara: 8.79,
-      },
-    );
+  final pricingRepository = PricingRepository(
+    sixInchPrices: {
+      SandwichType.veggieDelight: 4.99,
+      SandwichType.chickenTeriyaki: 5.99,
+      SandwichType.tunaMelt: 5.49,
+      SandwichType.meatballMarinara: 5.79,
+    },
+    footlongPrices: {
+      SandwichType.veggieDelight: 7.99,
+      SandwichType.chickenTeriyaki: 8.99,
+      SandwichType.tunaMelt: 8.49,
+      SandwichType.meatballMarinara: 8.79,
+    },
+  );
 
+  group('PricingRepository', () {
     test('getSandwichPrice returns correct price for six-inch', () {
       expect(pricingRepository.getSandwichPrice(SandwichType.veggieDelight, false), 4.99);
       expect(pricingRepository.getSandwichPrice(SandwichType.chickenTeriyaki, false), 5.99);
@@ -44,6 +44,7 @@ void main() {
         quantity: 2,
         price: 4.99,
         isFootlong: false,
+        breadType: BreadType.white,
       ));
       cart.addItem(CartItem(
         id: '2',
@@ -52,6 +53,7 @@ void main() {
         quantity: 1,
         price: 8.99,
         isFootlong: true,
+        breadType: BreadType.wheat,
       ));
       expect(pricingRepository.calculateCartSubtotal(cart), closeTo(4.99 * 2 + 8.99, 0.01));
     });
