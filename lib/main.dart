@@ -186,7 +186,7 @@ class _OrderScreenState extends State<OrderScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Sandwich Counter',
+          'Sandwich Shop',
           style: heading1,
         ),
       ),
@@ -199,7 +199,9 @@ class _OrderScreenState extends State<OrderScreen> {
                 height: 300,
                 child: Image.asset(
                   _getCurrentImagePath(),
-                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) {
                     return Center(
                       child: Text(

@@ -6,7 +6,7 @@ enum SandwichType {
   veggieDelight,
   chickenTeriyaki,
   tunaMelt,
-  meatballMarinara, sixInch, footlong,
+  meatballMarinara
 }
 
 
@@ -55,16 +55,12 @@ class Sandwich {
         return 'Tuna Melt';
       case SandwichType.meatballMarinara:
         return 'Meatball Marinara';
-      case SandwichType.sixInch:
-        return 'Six Inch';
-      case SandwichType.footlong:
-        throw UnimplementedError();
-    }
-  }
+      
+}  }
 
   String get image {
     String typeString = type.name;
-    String sizeString = isFootlong ? 'footlong' : 'six_inch';
+    String sizeString = isFootlong ? 'footlong' : '6Inch';
     return 'assets/images/${typeString}_$sizeString.png';
   }
 

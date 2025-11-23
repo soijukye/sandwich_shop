@@ -15,7 +15,12 @@ class PricingRepository {
   PricingRepository({required this.sixInchPrice, required this.footlongPrice});
 
   double getPrice(SandwichType type, int footlongCount) {
-    return type == SandwichType.sixInch ? sixInchPrice : footlongPrice;
+    
+    if (SandwichType.values.contains(type)) {
+      return sixInchPrice;
+    } else {
+      return footlongPrice;
+    }
   }
 
   double calculateSubtotal(int quantity, SandwichType type) {

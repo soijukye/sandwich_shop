@@ -34,10 +34,7 @@ class Cart {
 
   double get totalPrice {
     final pricingRepository = PricingRepository(sixInchPrice: 0.0, footlongPrice: 0.0);
-    int sixInchCount = items.where((item) => item.type == SandwichType.sixInch).fold(0, (sum, item) => sum + item.quantity);
-    int footlongCount = items.where((item) => item.type == SandwichType.footlong).fold(0, (sum, item) => sum + item.quantity);
-    return pricingRepository.getPrice(SandwichType.sixInch, sixInchCount) +
-        pricingRepository.getPrice(SandwichType.footlong, footlongCount);
+    return pricingRepository.calculateCartTotal(this);
   }
  
   void addItem(CartItem item) {
