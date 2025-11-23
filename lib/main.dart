@@ -73,16 +73,16 @@ class _OrderScreenState extends State<OrderScreen> {
         ));
       });
 
-      String sizeText;
-      if (_isFootlong) {
-        sizeText = 'footlong';
-      } else {
-        sizeText = 'six-inch';
-      }
+      String sizeText = _isFootlong ? 'footlong' : 'six-inch';
       String confirmationMessage =
           'Added $_quantity $sizeText ${sandwich.name} sandwich(es) on ${_selectedBreadType.name} bread to cart';
 
-      debugPrint(confirmationMessage);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(confirmationMessage),
+          duration: const Duration(seconds: 1),
+        ),
+      );
     }
   }
 
@@ -266,6 +266,28 @@ class _OrderScreenState extends State<OrderScreen> {
                 backgroundColor: Colors.green,
               ),
               const SizedBox(height: 20),
+              //cart summary
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Cart Summary', style: heading1),
+                      const SizedBox(height: 8),
+                      if (_cart.items.isEmpty)
+                        const Text('Your cart is empty.')
+                      else ...[
+                        for (final item in _cart.items)
+                          Text('${item.quantity} × ${item.name}'),
+                        const SizedBox(height: 8),
+                        Text('Total: £${_cart.totalPrice.toStringAsFixed(2)}'),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
