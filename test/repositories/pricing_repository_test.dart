@@ -36,13 +36,14 @@ void main() {
     });
 
     test('calculateCartSubtotal returns correct total', () {
-      final cart = Cart();
+      final cart = Cart(pricingRepository: pricingRepository);
       cart.addItem(CartItem(
         id: '1',
         name: 'Veggie Delight',
         type: SandwichType.veggieDelight,
         quantity: 2,
         price: 4.99,
+        isFootlong: false,
       ));
       cart.addItem(CartItem(
         id: '2',
@@ -50,6 +51,7 @@ void main() {
         type: SandwichType.chickenTeriyaki,
         quantity: 1,
         price: 8.99,
+        isFootlong: true,
       ));
       expect(pricingRepository.calculateCartSubtotal(cart), closeTo(4.99 * 2 + 8.99, 0.01));
     });

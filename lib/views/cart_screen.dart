@@ -16,6 +16,18 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Cart', style: normalText),
+        actions: [
+          if (widget.cart.items.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.delete_forever),
+              tooltip: 'Empty Cart',
+              onPressed: () {
+                setState(() {
+                  widget.cart.clear();
+                });
+              },
+            ),
+        ],
       ),
       body: widget.cart.items.isEmpty
           ? const Center(child: Text('Your cart is empty.'))
@@ -23,6 +35,7 @@ class _CartScreenState extends State<CartScreen> {
               itemCount: widget.cart.items.length,
               itemBuilder: (context, index) {
                 final item = widget.cart.items[index];
+                final itemKey = '${item.type.name}_${item.isFootlong}_${item.breadType.name}';
                 return Card(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
@@ -30,11 +43,20 @@ class _CartScreenState extends State<CartScreen> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Size: ${item.name.toLowerCase().contains("footlong") ? "Footlong" : "Six-inch"}'),
-                        Text('Bread: ${item.name.split(" ").first}'),
+                        Text('Size: ${item.isFootlong ? "Footlong" : "Six-inch"}'),
+                        Text('Bread: ${item.breadType.name}'),
                         Text('Quantity: ${item.quantity}'),
                         Text('Total: £${(item.price * item.quantity).toStringAsFixed(2)}'),
                       ],
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      tooltip: 'Remove Item',
+                      onPressed: () {
+                        setState(() {
+                          widget.cart.removeItem(itemKey);
+                        });
+                      },
                     ),
                   ),
                 );

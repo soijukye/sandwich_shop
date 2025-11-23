@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sandwich_shop/models/cart.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
+import 'package:sandwich_shop/repositories/pricing_repository.dart';
 import 'package:sandwich_shop/views/cart_screen.dart'; // Assuming CartScreen is in main.dart
 
 void main() {
   group('CartScreen', () {
     testWidgets('shows empty message when cart is empty', (WidgetTester tester) async {
-      final cart = Cart();
+      final cart = Cart(pricingRepository: PricingRepository(sixInchPrices: {}, footlongPrices: {}));
       await tester.pumpWidget(
         MaterialApp(
           home: CartScreen(cart: cart),

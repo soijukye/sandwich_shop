@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/models/cart.dart';
+import 'package:sandwich_shop/repositories/pricing_repository.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/views/cart_screen.dart';
 
@@ -14,7 +15,7 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  final Cart _cart = Cart();
+  final Cart _cart = Cart(pricingRepository: PricingRepository(sixInchPrices: {}, footlongPrices: {}));
   final TextEditingController _notesController = TextEditingController();
 
   SandwichType _selectedSandwichType = SandwichType.veggieDelight;
@@ -52,7 +53,10 @@ class _OrderScreenState extends State<OrderScreen> {
           id: sandwich.name,
           name: sandwich.name,
           quantity: _quantity,
-          price: _isFootlong ? 5.0 : 3.0, type: sandwich.type,
+          price: _isFootlong ? 5.0 : 3.0,
+          type: sandwich.type,
+          isFootlong: _isFootlong,
+          breadType: _selectedBreadType,
         ));
       });
 

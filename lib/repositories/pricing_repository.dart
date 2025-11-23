@@ -24,8 +24,7 @@ class PricingRepository {
   double calculateCartSubtotal(Cart cart) {
     double subtotal = 0.0;
     for (final item in cart.items) {
-      // You may need to add isFootlong to CartItem for full accuracy
-      subtotal += getSandwichPrice(item.type, true) * item.quantity;
+      subtotal += getSandwichPrice(item.type, item.isFootlong) * item.quantity;
     }
     return subtotal;
   }
