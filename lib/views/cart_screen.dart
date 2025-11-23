@@ -31,36 +31,52 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: widget.cart.items.isEmpty
           ? const Center(child: Text('Your cart is empty.'))
-          : ListView.builder(
-              itemCount: widget.cart.items.length,
-              itemBuilder: (context, index) {
-                final item = widget.cart.items[index];
-                final itemKey = '${item.type.name}_${item.isFootlong}_${item.breadType.name}';
-                return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: ListTile(
-                    title: Text(item.name, style: heading1),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Size: ${item.isFootlong ? "Footlong" : "Six-inch"}'),
-                        Text('Bread: ${item.breadType.name}'),
-                        Text('Quantity: ${item.quantity}'),
-                        Text('Total: £${(item.price * item.quantity).toStringAsFixed(2)}'),
-                      ],
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      tooltip: 'Remove Item',
-                      onPressed: () {
-                        setState(() {
-                          widget.cart.removeItem(itemKey);
-                        });
-                      },
-                    ),
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: widget.cart.items.length,
+                    itemBuilder: (context, index) {
+                      final item = widget.cart.items[index];
+                      final itemKey = '${item.type.name}_${item.isFootlong}_${item.breadType.name}';
+                      return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: ListTile(
+                          title: Text(item.name, style: heading1),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Size: ${item.isFootlong ? "Footlong" : "Six-inch"}'),
+                              Text('Bread: ${item.breadType.name}'),
+                              Text('Quantity: ${item.quantity}'),
+                              Text('Total: £${(item.price * item.quantity).toStringAsFixed(2)}'),
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete),
+                            tooltip: 'Remove Item',
+                            onPressed: () {
+                              setState(() {
+                                widget.cart.removeItem(itemKey);
+                              });
+                            },
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  color: Colors.grey[200],
+                  child: Text(
+                    'Total Price: £${widget.cart.totalPrice.toStringAsFixed(2)}',
+                    style: heading1,
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ],
             ),
     );
   }

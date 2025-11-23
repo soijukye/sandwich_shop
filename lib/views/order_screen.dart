@@ -15,7 +15,21 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  final Cart _cart = Cart(pricingRepository: PricingRepository(sixInchPrices: {}, footlongPrices: {}));
+  final PricingRepository _pricingRepository = PricingRepository(
+    sixInchPrices: {
+      SandwichType.veggieDelight: 4.99,
+      SandwichType.chickenTeriyaki: 5.99,
+      SandwichType.tunaMelt: 5.49,
+      SandwichType.meatballMarinara: 5.79,
+    },
+    footlongPrices: {
+      SandwichType.veggieDelight: 7.99,
+      SandwichType.chickenTeriyaki: 8.99,
+      SandwichType.tunaMelt: 8.49,
+      SandwichType.meatballMarinara: 8.79,
+    },
+  );
+  late final Cart _cart;
   final TextEditingController _notesController = TextEditingController();
 
   SandwichType _selectedSandwichType = SandwichType.veggieDelight;
@@ -26,6 +40,7 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
     super.initState();
+    _cart = Cart(pricingRepository: _pricingRepository);
     _notesController.addListener(() {
       setState(() {});
     });
@@ -53,7 +68,7 @@ class _OrderScreenState extends State<OrderScreen> {
           id: sandwich.name,
           name: sandwich.name,
           quantity: _quantity,
-          price: _isFootlong ? 5.0 : 3.0,
+          price: _pricingRepository.getSandwichPrice(_selectedSandwichType, _isFootlong),
           type: sandwich.type,
           isFootlong: _isFootlong,
           breadType: _selectedBreadType,
