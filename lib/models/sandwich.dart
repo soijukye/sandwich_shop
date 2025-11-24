@@ -60,7 +60,7 @@ class Sandwich {
 
   String get image {
     String typeString = type.name;
-    String sizeString = isFootlong ? 'footlong' : '6Inch';
+    String sizeString = isFootlong ? 'footlong' : 'six_inch';
     return 'assets/images/${typeString}_$sizeString.png';
   }
 
