@@ -17,15 +17,17 @@ void main() {
     expect(find.text('Add to Cart'), findsOneWidget);
 
     // Select sandwich type
-    await tester.tap(find.text('Sandwich Type'));
+    await tester.tap(find.byType(DropdownMenu<SandwichType>));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Chicken Teriyaki').last);
+    expect(find.text('Chicken Teriyaki'), findsWidgets);
+    await tester.tap(find.text('Chicken Teriyaki').first);
     await tester.pumpAndSettle();
 
     // Select bread type
-    await tester.tap(find.text('Bread Type'));
+    await tester.tap(find.byType(DropdownMenu<BreadType>));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('wheat').last);
+    expect(find.text('wheat'), findsWidgets);
+    await tester.tap(find.text('wheat').first);
     await tester.pumpAndSettle();
 
     // Increase quantity
