@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/models/cart.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
+import 'package:sandwich_shop/views/checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
   final Cart cart;
@@ -81,7 +82,15 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton.icon(
-                  onPressed: widget.cart.items.isNotEmpty ? () {/* TODO: Implement checkout logic */} : null,
+                  onPressed: widget.cart.items.isNotEmpty
+                      ? () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => CheckoutScreen(cart: widget.cart),
+                            ),
+                          );
+                        }
+                      : null,
                   icon: const Icon(Icons.payment, color: Colors.white),
                   label: const Text('Checkout', style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
