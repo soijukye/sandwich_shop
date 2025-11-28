@@ -29,55 +29,74 @@ class _CartScreenState extends State<CartScreen> {
             ),
         ],
       ),
-      body: widget.cart.items.isEmpty
-          ? const Center(child: Text('Your cart is empty.'))
-          : Column(
+      body: Column(
+        children: [
+          if (widget.cart.items.isEmpty)
+            const Expanded(child: Center(child: Text('Your cart is empty.')))
+          else
+            Expanded(
+              child: ListView.builder(
+                itemCount: widget.cart.items.length,
+                itemBuilder: (context, index) {
+                  final item = widget.cart.items[index];
+                  final itemKey = '${item.type.name}_${item.isFootlong}_${item.breadType.name}';
+                  return Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ListTile(
+                      title: Text(item.name, style: heading1),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Size: ${item.isFootlong ? "Footlong" : "Six-inch"}'),
+                          Text('Bread: ${item.breadType.name}'),
+                          Text('Quantity: ${item.quantity}'),
+                          Text('Total: £${(item.price * item.quantity).toStringAsFixed(2)}'),
+                        ],
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        tooltip: 'Remove Item',
+                        onPressed: () {
+                          setState(() {
+                            widget.cart.removeItem(itemKey);
+                          });
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            color: Colors.grey[200],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: widget.cart.items.length,
-                    itemBuilder: (context, index) {
-                      final item = widget.cart.items[index];
-                      final itemKey = '${item.type.name}_${item.isFootlong}_${item.breadType.name}';
-                      return Card(
-                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        child: ListTile(
-                          title: Text(item.name, style: heading1),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Size: ${item.isFootlong ? "Footlong" : "Six-inch"}'),
-                              Text('Bread: ${item.breadType.name}'),
-                              Text('Quantity: ${item.quantity}'),
-                              Text('Total: £${(item.price * item.quantity).toStringAsFixed(2)}'),
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            tooltip: 'Remove Item',
-                            onPressed: () {
-                              setState(() {
-                                widget.cart.removeItem(itemKey);
-                              });
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                Text(
+                  'Total Price: £${widget.cart.totalPrice.toStringAsFixed(2)}',
+                  style: heading1,
+                  textAlign: TextAlign.right,
                 ),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  color: Colors.grey[200],
-                  child: Text(
-                    'Total Price: £${widget.cart.totalPrice.toStringAsFixed(2)}',
-                    style: heading1,
-                    textAlign: TextAlign.right,
+                const SizedBox(height: 12),
+                ElevatedButton.icon(
+                  onPressed: widget.cart.items.isNotEmpty ? () {/* TODO: Implement checkout logic */} : null,
+                  icon: const Icon(Icons.payment, color: Colors.white),
+                  label: const Text('Checkout', style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.cart.items.isNotEmpty ? Colors.green : Colors.grey,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
               ],
             ),
+          ),
+        ],
+      ),
     );
   }
 }
