@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/views/cart_screen.dart';
+import 'package:sandwich_shop/views/order_screen.dart';
 import 'package:sandwich_shop/views/profile_screen.dart';
 import 'package:sandwich_shop/models/cart.dart';
 
@@ -19,6 +20,19 @@ class SandwichShopDrawer extends StatelessWidget {
               color: Colors.green,
             ),
             child: Text('Sandwich Shop', style: heading1),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const OrderScreen(),
+                ),
+                (route) => false,
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.shopping_cart),
