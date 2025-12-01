@@ -5,6 +5,7 @@ import 'package:sandwich_shop/repositories/pricing_repository.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/views/cart_screen.dart';
 import 'package:sandwich_shop/views/profile_screen.dart';
+import 'package:sandwich_shop/models/drawer.dart';
 
 class OrderScreen extends StatefulWidget {
   final int maxQuantity;
@@ -211,6 +212,7 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
         ],
       ),
+      drawer: SandwichShopDrawer(cart: _cart),
       body: Center(
         child: SingleChildScrollView(
           child: Column(

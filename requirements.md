@@ -88,3 +88,42 @@ So that I can continue ordering sandwiches after viewing my profile.
 - [ ] All controls are accessible and responsive.
 - [ ] No unused navigation buttons or imports remain in the codebase.
 
+# Drawer Navigation Feature Requirements
+
+## 1. Feature Description
+
+This feature adds a navigation Drawer to the sandwich shop app, accessible from the main OrderScreen. The Drawer provides quick access to key screens such as Cart and Profile, improving user experience and discoverability of app features. The Drawer uses Material design elements and is styled consistently with the rest of the app.
+
+## 2. User Stories
+
+### User Story 1: Open Navigation Drawer
+**As a customer,**
+I want to open a navigation drawer from the main screen,
+So that I can easily access different parts of the app.
+
+### User Story 2: Navigate to Cart
+**As a customer,**
+I want to tap a Cart option in the drawer,
+So that I can quickly view and manage my cart.
+
+### User Story 3: Navigate to Profile
+**As a customer,**
+I want to tap a Profile option in the drawer,
+So that I can view and edit my profile information.
+
+### User Story 4: Consistent UI
+**As a customer,**
+I want the drawer to use clear icons, labels, and styling,
+So that navigation feels modern and intuitive.
+
+## 3. Acceptance Criteria
+
+- [ ] A Drawer is present on the OrderScreen and accessible via the app bar menu icon.
+- [ ] The Drawer contains navigation options for Cart and Profile, each with appropriate icons and labels.
+- [ ] Tapping Cart navigates to the CartScreen.
+- [ ] Tapping Profile navigates to the ProfileScreen.
+- [ ] The Drawer header displays the app name and uses consistent styling.
+- [ ] Navigation works correctly and closes the drawer after selection.
+- [ ] All controls are accessible and responsive.
+- [ ] UI elements in the Drawer match the app’s Material design and style guidelines.
+

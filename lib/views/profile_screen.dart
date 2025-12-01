@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
+import 'package:sandwich_shop/models/drawer.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -10,6 +11,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile', style: heading1),
       ),
+      drawer: const SandwichShopDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(

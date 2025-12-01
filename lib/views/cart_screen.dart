@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/models/cart.dart';
+import 'package:sandwich_shop/models/drawer.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/views/checkout_screen.dart';
 
@@ -30,6 +31,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
         ],
       ),
+      drawer: SandwichShopDrawer(cart: widget.cart),
       body: Column(
         children: [
           if (widget.cart.items.isEmpty)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/models/cart.dart';
+import 'package:sandwich_shop/models/drawer.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class CheckoutScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Checkout', style: heading1),
       ),
+      drawer: SandwichShopDrawer(cart: cart),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
