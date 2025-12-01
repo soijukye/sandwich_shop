@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/order_screen.dart';
 
-
 void main() {
   runApp(const App());
 }
@@ -13,7 +12,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sandwich Shop App',
-      home: const OrderScreen(maxQuantity: 5),
+      home: Scaffold(
+        body: const OrderScreen(maxQuantity: 5),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

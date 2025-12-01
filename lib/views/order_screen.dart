@@ -4,6 +4,7 @@ import 'package:sandwich_shop/models/cart.dart';
 import 'package:sandwich_shop/repositories/pricing_repository.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/views/cart_screen.dart';
+import 'package:sandwich_shop/views/profile_screen.dart';
 
 class OrderScreen extends StatefulWidget {
   final int maxQuantity;
@@ -181,6 +182,14 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
+  void _viewProfile() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ProfileScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,6 +203,11 @@ class _OrderScreenState extends State<OrderScreen> {
             icon: const Icon(Icons.shopping_cart),
             tooltip: 'View Cart',
             onPressed: _viewCart,
+          ),
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Profile',
+            onPressed: _viewProfile,
           ),
         ],
       ),

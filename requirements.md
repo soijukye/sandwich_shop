@@ -42,3 +42,49 @@ So that I know I need to add items before checking out.
 - [ ] If the cart is empty, a message "Your cart is empty." is shown.
 - [ ] All controls are accessible and responsive.
 - [ ] UI uses clear, modern elements (cards, list tiles, icons) for item display and actions.
+
+# ProfileScreen and Navigation Feature Requirements
+
+## 1. Feature Description
+
+This feature introduces a ProfileScreen and navigation access from the main page and order screen. The ProfileScreen displays user information (avatar, name, email) and provides actions for editing the profile and logging out. The navigation button (profile icon) allows users to quickly access their profile from the app’s main interface, improving usability and user engagement.
+
+## 2. User Stories
+
+### User Story 1: Access Profile from Main Page
+**As a customer,**
+I want to access my profile by tapping a profile icon on the main page,
+So that I can view and manage my account information easily.
+
+### User Story 2: View Profile Information
+**As a customer,**
+I want to see my avatar, name, and email on the ProfileScreen,
+So that I can confirm my account details.
+
+### User Story 3: Edit Profile
+**As a customer,**
+I want to tap an edit button to update my profile information,
+So that I can keep my account up to date.
+
+### User Story 4: Log Out
+**As a customer,**
+I want to log out from my account using a button on the ProfileScreen,
+So that I can securely exit the app.
+
+### User Story 5: Navigate Back
+**As a customer,**
+I want to return to the main page from the ProfileScreen,
+So that I can continue ordering sandwiches after viewing my profile.
+
+## 3. Acceptance Criteria
+
+- [ ] A profile icon button is present in the app bar of the order screen, next to the cart icon.
+- [ ] Tapping the profile icon navigates to the ProfileScreen.
+- [ ] The ProfileScreen displays a user avatar, name, and email address.
+- [ ] The ProfileScreen includes an edit profile button and a log out button, both functional or clearly marked as TODO.
+- [ ] Navigation back to the main page is possible from the ProfileScreen.
+- [ ] The floating profile button on the main page is removed (if previously present).
+- [ ] UI elements are styled consistently with the rest of the app (Material design, cards, icons).
+- [ ] All controls are accessible and responsive.
+- [ ] No unused navigation buttons or imports remain in the codebase.
+
